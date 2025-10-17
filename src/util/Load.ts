@@ -6,6 +6,7 @@ import path from 'path'
 
 import { Account } from '../interface/Account'
 import { Config, ConfigSaveFingerprint } from '../interface/Config'
+import { log } from './Logger'
 
 let configCache: Config
 
@@ -20,8 +21,12 @@ export function loadAccounts(): Account[] {
 
         const accountDir = path.join(__dirname, '../', file)
         const accounts = fs.readFileSync(accountDir, 'utf-8')
-
-        return JSON.parse(accounts)
+        
+        const parsedAccounts: Account[] = JSON.parse(accounts)
+        
+        const filteredAccounts = parsedAccounts.filter(account => account.set === process.env.ACCOUNT_SET);
+        log('main', 'LOAD-ACCOUNTS', `Loaded ${filteredAccounts.length} accounts from ${file} with process.env.ACCOUNT_SET=${process.env.ACCOUNT_SET}`)
+        return filteredAccounts
     } catch (error) {
         throw new Error(error as string)
     }

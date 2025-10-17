@@ -2,6 +2,7 @@ export interface Account {
     email: string;
     password: string;
     proxy: AccountProxy;
+    set: string;
 }
 
 export interface AccountProxy {

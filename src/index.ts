@@ -264,6 +264,7 @@ export class MicrosoftRewardsBot {
         log(false,'FLOW','Desktop() invoked')
         const browser = await this.browserFactory.createBrowser(account.proxy, account.email)
         this.homePage = await browser.newPage()
+        this.homePage.setViewportSize({ width: 800, height: 600 })
 
         log(this.isMobile, 'MAIN', 'Starting browser')
 
@@ -341,6 +342,7 @@ export class MicrosoftRewardsBot {
         log(true,'FLOW','Mobile() invoked')
         const browser = await this.browserFactory.createBrowser(account.proxy, account.email)
         this.homePage = await browser.newPage()
+        this.homePage.setViewportSize({ width: 375, height: 667 })
 
         log(this.isMobile, 'MAIN', 'Starting browser')
 
