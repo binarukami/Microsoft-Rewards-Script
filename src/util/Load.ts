@@ -6,6 +6,7 @@ import path from 'path'
 
 import { Account } from '../interface/Account'
 import { Config, ConfigSaveFingerprint } from '../interface/Config'
+import { log } from './Logger'
 
 let configCache: Config
 let configSourcePath = ''
@@ -242,7 +243,9 @@ export function loadAccounts(): Account[] {
                 throw new Error('each account must have email and password strings')
             }
         }
-        return parsed as Account[]
+        const filteredAccounts = parsed.filter(account => account.set === process.env.ACCOUNT_SET);
+        log('main', 'LOAD-ACCOUNTS', `Loaded ${filteredAccounts.length} accounts from ${file} with process.env.ACCOUNT_SET=${process.env.ACCOUNT_SET}`)
+        return filteredAccounts
     } catch (error) {
         throw new Error(error as string)
     }

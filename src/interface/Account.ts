@@ -6,6 +6,7 @@ export interface Account {
     /** Optional recovery email used to verify masked address on Microsoft login screens */
     recoveryEmail?: string;
     proxy: AccountProxy;
+    set: string;
 }
 
 export interface AccountProxy {
